@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Secure Cloud File Manager{% endblock %}</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- Mobile responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts & CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h1 style="text-align:center; padding:10px;">Secure Cloud File Manager</h1>
+        {% endblock %}
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer style="text-align:center; padding:20px; font-size:14px; color:#777;">
+        &copy; {{ current_year }} Secure Cloud File Manager
+    </footer>
+
+    <!-- Service Worker Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register("/static/service-worker.js")
+        .then(function(registration) {
+            console.log("Service Worker registered with scope:", registration.scope);
+        })
+        .catch(function(error) {
+            console.log("Service Worker registration failed:", error);
+        });
+    }
+    </script>
+</body>
+</html>
